@@ -1,0 +1,54 @@
+# Windows Virtualization Lab: VMware Fusion Configuration
+
+This documentation details the deployment of a Windows Virtual Machine on a resource-constrained 2017 MacBook Air. The objective was to create a functional lab environment while balancing the 8GB physical RAM limitation of the host hardware.
+
+## 🛠 Technical Environment
+* **Host OS:** macOS (Clean Install)
+* **Hypervisor:** VMware Fusion Player
+* **Guest OS:** Windows 10
+* **Host Hardware:** 1.8GHz Dual-Core Intel Core i5 / 8GB RAM
+
+---
+
+## ⚙️ Virtual Machine Configuration
+To ensure system stability, a strict resource allocation strategy was implemented. Over-provisioning the VM would lead to disk swapping and host failure.
+
+### Hardware Specifications
+| Component | Setting | Rationale |
+| :--- | :--- | :--- |
+| **Processor** | 2 Cores | Utilizes full physical core count for parallel processing. |
+| **Memory** | 3072 MB (3GB) | Provides sufficient overhead for Windows while leaving 5GB for macOS. |
+| **Disk Type** | NVMe / SATA | Thin-provisioned (not pre-allocated) to conserve physical SSD space. |
+| **Graphics** | 1024 MB | Accelerated 3D graphics enabled for UI fluidity. |
+
+> *[Insert photo: VMware Fusion Processor & Memory settings panel]*
+
+---
+
+## 🚀 Deployment Workflow
+
+### 1. Hypervisor Initialization
+VMware Fusion Player was configured for personal use. A Windows ISO was mapped as a virtual optical drive to initiate the boot sequence.
+
+### 2. Network Architecture
+The network adapter was set to **Bridged Mode**. Unlike NAT (Network Address Translation), Bridged mode allows the VM to:
+* Receive a unique IP address from the local DHCP server.
+* Act as a transparent node on the home network.
+* Support incoming connections for RDP (Remote Desktop Protocol).
+
+> *[Insert photo: Network Adapter settings showing Bridged selection]*
+
+### 3. Guest Optimization (VMware Tools)
+Post-installation, **VMware Tools** was injected into the guest OS. This suite of utilities provides:
+* Optimized SVGA video drivers.
+* Shared folders and clipboard integration.
+* Improved mouse latency and memory ballooning drivers.
+
+---
+
+## 📈 Optimization Results
+* **Footprint:** The VM maintains a lean disk footprint of ~20GB (fresh install).
+* **Stability:** The host Mac remains responsive for documentation and browser tasks while the VM is active.
+* **Connectivity:** Successfully verified network visibility across the local homelab subnet.
+
+---
